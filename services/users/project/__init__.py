@@ -1,9 +1,13 @@
 # services/users/project/__init__.py
 
+import uuid
+
+from flask_cors import CORS
 
 import os  # new
 from flask import Flask, send_file, jsonify
 from flask_restful import Resource, Api
+from flask import Blueprint, request, render_template
 
 import sys
 
@@ -19,11 +23,94 @@ api = Api(app)
 app_settings = os.getenv('APP_SETTINGS')  # new
 app.config.from_object(app_settings)      # new
 
+# configuration
+DEBUG = True
+
+# enable CORS
+CORS(app, resources={r'/*': {'origins': '*'}})
+
+
+BOOKS = [
+    {
+        'id': uuid.uuid4().hex,
+        'title': 'On the Road',
+        'author': 'Jack Kerouac',
+        'read': True
+    },
+    {
+        'id': uuid.uuid4().hex,
+        'title': 'Harry Potter and the Philosopher\'s Stone',
+        'author': 'J. K. Rowling',
+        'read': False
+    },
+    {
+        'id': uuid.uuid4().hex,
+        'title': 'Green Eggs and Ham',
+        'author': 'Dr. Seuss',
+        'read': True
+    }
+]
+
+def remove_book(book_id):
+    for book in BOOKS:
+        if book['id'] == book_id:
+            BOOKS.remove(book)
+            return True
+    return False
+
+
+# sanity check route
+@app.route('/ping', methods=['GET'])
+def ping_pong():
+    return jsonify('pong!')
+
+
+@app.route('/books', methods=['GET', 'POST'])
+def all_books():
+    response_object = {'status': 'success'}
+    if request.method == 'POST':
+        post_data = request.get_json()
+        BOOKS.append({
+            'id': uuid.uuid4().hex,
+            'title': post_data.get('title'),
+            'author': post_data.get('author'),
+            'read': post_data.get('read')
+        })
+        response_object['message'] = 'Book added!'
+    else:
+        response_object['books'] = BOOKS
+    return jsonify(response_object)
+
+
+@app.route('/books/<book_id>', methods=['PUT', 'DELETE'])
+def single_book(book_id):
+    response_object = {'status': 'success'}
+    if request.method == 'PUT':
+        post_data = request.get_json()
+        remove_book(book_id)
+        BOOKS.append({
+            'id': uuid.uuid4().hex,
+            'title': post_data.get('title'),
+            'author': post_data.get('author'),
+            'read': post_data.get('read')
+        })
+        response_object['message'] = 'Book updated!'
+    if request.method == 'DELETE':
+        remove_book(book_id)
+        response_object['message'] = 'Book removed!'
+    return jsonify(response_object)
+
+
+
+
+
+
+
 
 class UsersPing(Resource):
     def get(self):
         return {
-        'status': 'successc c',
+        'status': 'success okokoko',
         'message': 'pong!'
     }
 
@@ -58,3 +145,9 @@ def route_frontend(path):
     else:
         index_path = os.path.join(app.static_folder, "index.html")
         return send_file(index_path)
+
+@app.route('/users/<string:nombre>')
+def hello_world(nombre=None):
+
+    return ("Hola {}!".format(nombre))
+    
