@@ -10,12 +10,17 @@ from flask_restful import Resource, Api
 from flask import Blueprint, request, render_template
 
 import sys
+import sklearn
+from joblib import load
+from sklearn.tree import DecisionTreeClassifier 
+import pandas as pd
+
 
 
 # instantiate the app
 app = Flask(__name__)
 
-print(app.config, file=sys.stderr)
+#print(app.config, file=sys.stderr)
 
 api = Api(app)
 
@@ -25,9 +30,45 @@ app.config.from_object(app_settings)      # new
 
 # configuration
 DEBUG = True
+FLASK_DEBUG=0
 
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
+
+my_dir = os.path.dirname( __file__)
+print(my_dir)
+#classi = open('DTS.joblib', 'rb')
+pickle_file_path = os.path.join(my_dir, 'DTS.joblib')
+print(pickle_file_path)
+
+print( sklearn.__version__)
+
+#DTSf = load(pickle_file_path) 
+
+@app.route('/predict', methods=['GET'])
+def predict():
+    """API request
+    """
+    #Load the saved model
+    print("Cargar el modelo...")
+    loaded_model = cargarModeloSiEsNecesario()
+
+    print("Hacer Pronosticos")
+    continuas = [[1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0],]
+    predictions = str(loaded_model.predict(continuas))
+    return jsonify(predictions)
+
+global_model = None
+
+def cargarModeloSiEsNecesario():
+    global global_model
+    if global_model is not None:
+        print('Modelo YA cargado')
+        return global_model
+    else:
+        global_model = load(pickle_file_path) 
+        print('Modelo Cargado')
+        return global_model
 
 
 BOOKS = [
