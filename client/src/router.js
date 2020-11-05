@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Books from './components/Books.vue';
 import Ping from './components/Ping.vue';
+import Predict from './components/Predict.vue';
 
 Vue.use(Router);
 
@@ -19,5 +20,11 @@ export default new Router({
       name: 'Ping',
       component: Ping,
     },
+    {
+      path: '/predict',
+      name: 'Predict',
+      component: Predict,
+    },
+    
   ],
 });

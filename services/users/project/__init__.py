@@ -7,14 +7,14 @@ from flask_cors import CORS
 import os  # new
 from flask import Flask, send_file, jsonify
 from flask_restful import Resource, Api
-from flask import Blueprint, request, render_template
+from flask import request, render_template
 
 import sys
 import sklearn
 from joblib import load
 from sklearn.tree import DecisionTreeClassifier 
 import pandas as pd
-
+import json, pickle
 
 
 # instantiate the app
@@ -40,23 +40,70 @@ print(my_dir)
 #classi = open('DTS.joblib', 'rb')
 pickle_file_path = os.path.join(my_dir, 'DTS.joblib')
 print(pickle_file_path)
-
 print( sklearn.__version__)
-
 #DTSf = load(pickle_file_path) 
 
-@app.route('/predict', methods=['GET'])
-def predict():
+@app.route('/api/predict', methods=['GET','POST'])
+def api_predict():
     """API request
     """
-    #Load the saved model
-    print("Cargar el modelo...")
-    loaded_model = cargarModeloSiEsNecesario()
+    if request.method == 'POST':  #this block is only entered when the form is submitted
+        #Load the saved model
+        print("Cargar el modelo...")
+        loaded_model = cargarModeloSiEsNecesario()
 
-    print("Hacer Pronosticos")
-    continuas = [[1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0],]
-    predictions = str(loaded_model.predict(continuas))
-    return jsonify(predictions)
+        print("Hacer Pronosticos")
+        
+
+        #req_data = json.dumps(request.get_json(force=True)) #request.get_json()
+        req_data = request.get_json () 
+        if not req_data:
+            return jsonify(error="request body cannot be empty"), 400
+        glucosa = req_data['glucosa']
+        insulina = req_data['insulina']
+
+        #print("post_data:"+str(json.dumps(post_data)))
+        #for key in post_data.keys():
+        #    print("key:"+key)
+        #print("glucosa:"+req_data['glucosa'])
+        
+        continuas = [[glucosa, insulina],] #330, 1520
+        #continuas = [[330, 1520],] 
+        predictions = str(loaded_model.predict(continuas))
+        return jsonify(prediction=predictions)
+
+    #'glucosa', 'insulina'
+    return '''User postman u otro cliente para ejecutar esta API REST'''
+
+@app.route('/predict', methods=['GET','POST'])
+def predict():
+    """
+    """
+    if request.method == 'POST':  #this block is only entered when the form is submitted
+        #Load the saved model
+        print("Cargar el modelo...")
+        loaded_model = cargarModeloSiEsNecesario()
+
+        print("Hacer Pronosticos")
+        glucosa = request.form.get('glucosa')
+        insulina = request.form['insulina']
+
+       
+        continuas = [[glucosa, insulina],] #330, 1520
+        predictions = str(loaded_model.predict(continuas))
+  
+
+        return '''<h3>The glucosa value is:  {}</h3>
+                  <h3>The insulina value is: {}</h3>
+                  <h1>The predict value is: {}</h1>'''.format(glucosa, insulina, predictions)
+    #'glucosa', 'insulina'
+    return '''<form method="POST">
+                  glucosa: <input type="text" name="glucosa"><br>
+                  insulina: <input type="text" name="insulina"><br>
+                  <input type="submit" value="Submit"><br>
+              </form>'''
+
+
 
 global_model = None
 
