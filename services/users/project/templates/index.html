@@ -18,33 +18,32 @@
     <div class="container">
       <div class="column is-one-third">
         <br>
-        <h1 class="title">All Users</h1>
+        <h1 class="title">Predecciones</h1>
         <hr><br>
         <form action="/" method="POST">
           <div class="field">
             <input
-              name="username" class="input"
-              type="text" placeholder="Enter a username" required>
+              name="glucosa" class="input"
+              type="text" placeholder="Enter glucosa" required>
           </div>
           <div class="field">
             <input
-              name="email" class="input"
-              type="email" placeholder="Enter an email address" required>
+              name="insulina" class="input"
+              type="text" placeholder="Enter insulina" required>
           </div>
           <input
             type="submit" class="button is-primary is-fullwidth"
-            value="Submit">
+            value="Predecir">
         </form>
         <br>
         <hr>
-          {% if users %}
-            <ol>
-              {% for user in users %}
-                <li>{{user.username}}</li>
-              {% endfor %}
-            </ol>
+          {% if predictions %}
+
+          {{continuas}}<br>
+            {{predictions}}
+
           {% else %}
-            <p>No users!</p>
+            <p>No predicts!</p>
           {% endif %}
         </div>
       </div>

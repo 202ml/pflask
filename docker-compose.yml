@@ -27,7 +27,7 @@ services:
     tty: true # para que se mantenga sin necesidad de run un server
     container_name: users_py
     environment:
-      - FLASK_APP=project/__init__.py
+      - FLASK_APP=project/app.py #project/__init__.py
       - FLASK_ENV=development
       - APP_SETTINGS=project.config.DevelopmentConfig  # new
-      # - 'RUN=flask run --host=0.0.0.0 --port=5000'
+    #  # - 'RUN=flask run --host=0.0.0.0 --port=5000'
