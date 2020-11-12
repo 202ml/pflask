@@ -1,5 +1,8 @@
 <template>
-  <div class="hello">
+   <div class="container">
+    <div class="row">
+      <div class="col-sm-10">
+
     <h1>Cliente de las predicciones</h1>
     <alert :message=message v-if="showMessage"></alert>
     <p> 
@@ -33,7 +36,8 @@
         </b-button-group>
       </b-form>
 
-    
+    </div>
+    </div>
   </div>
 </template>
 
@@ -58,49 +62,35 @@ export default {
     alert: Alert,
   },
   methods: {
-    predecix: function() {
-      const path = 'http://localhost:5001/api/predict';
-      axios.get(path)
-        .then((res) => {
-          this.resp = res.data;
-        })
-        .catch((error) => {
-          // eslint-disable-next-line
-          console.error(error);
-        });
-        
-    },
-    addBook(payload) {
+
+    predicter: function(payload) {
       const path = 'http://localhost:5001/api/predict';
       console.log(payload);
       axios.post(path, payload)
         .then((res) => {
           this.resp = res.data;
 
-          
-          this.message = 'predict process!';
+          this.message = 'predict process ';
           this.showMessage = true;
         })
         .catch((error) => {
-          // eslint-disable-next-line
           console.log(error);
-          //this.getBooks();
         });
     },
-    onSubmit(evt) {
+    onSubmit: function(evt) {
       evt.preventDefault();
       const payload = {
         glucosa: this.d.var1,
         insulina: this.d.var2,
       };
-      this.addBook(payload);
+      this.predicter(payload);
       this.initForm();
     },
-    onReset(evt) {
+    onReset: function(evt) {
       evt.preventDefault();
       this.initForm();
     },
-    initForm() {
+    initForm: function() {
       this.d.var1 = '';
       this.d.var2 = '';
 
@@ -109,29 +99,7 @@ export default {
   },
 
   created: function() {
-    //this.predecir();
-  }, 
+  }
 
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-.hello {
-color: #42b983;
-}
-</style>

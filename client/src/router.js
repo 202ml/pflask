@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Books from './components/Books.vue';
 import Ping from './components/Ping.vue';
 import Predict from './components/Predict.vue';
 
@@ -11,17 +10,12 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'Books',
-      component: Books,
-    },
-    {
       path: '/ping',
       name: 'Ping',
       component: Ping,
     },
     {
-      path: '/predict',
+      path: '/',
       name: 'Predict',
       component: Predict,
     },
