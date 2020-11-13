@@ -18,18 +18,18 @@
     <div class="container">
       <div class="column is-one-third">
         <br>
-        <h1 class="title">Predecciones</h1>
+        <h1 class="title">Predecciones de diabetes</h1>
         <hr><br>
         <form action="/" method="POST">
           <div class="field">
             <input
               name="glucosa" class="input"
-              type="text" placeholder="Enter glucosa" required>
+              type="number" placeholder="Enter glucosa" required>
           </div>
           <div class="field">
             <input
               name="insulina" class="input"
-              type="text" placeholder="Enter insulina" required>
+              type="number" placeholder="Enter insulina" required>
           </div>
           <input
             type="submit" class="button is-primary is-fullwidth"
@@ -39,8 +39,8 @@
         <hr>
           {% if predictions %}
 
-          {{continuas}}<br>
-            {{predictions}}
+            Features:<b> {{features}}</b><br>
+            Predict: <b>{{predictions}}</b>
 
           {% else %}
             <p>No predicts!</p>

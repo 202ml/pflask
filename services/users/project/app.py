@@ -47,16 +47,18 @@ def predict():
         print("Hacer Pronosticos")
         glucosa = request.form.get('glucosa')
         insulina = request.form['insulina']
+        #r_map = {'normal': 1, 'pre-diabetes': 2, 'diabetes': 3}
+        r_invmap = {1: 'normal', 2: 'pre-diabetes', 3: 'diabetes'}
 
        
         continuas = [[glucosa, insulina],] #330, 1520
-        predictions = str(loaded_model.predict(continuas))
-  
+        predictions = loaded_model.predict(continuas)
+        result_cnet = r_invmap[predictions[0]] 
 
         #return '''<h3>The glucosa value is:  {}</h3>
         #          <h3>The insulina value is: {}</h3>
         #          <h1>The predict value is: {}</h1>'''.format(glucosa, insulina, predictions)
-        return render_template("index.html", predictions=predictions, continuas=continuas)
+        return render_template("index.html", features=continuas, predictions=result_cnet)
 
     #return '''<form method="POST">
     #              glucosa: <input type="text" name="glucosa"><br>
