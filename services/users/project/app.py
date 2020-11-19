@@ -58,14 +58,21 @@ def predict():
         #r_map = {'normal': 1, 'pre-diabetes': 2, 'diabetes': 3}
         r_invmap = {1: 'normal', 2: 'pre-diabetes', 3: 'diabetes'}
 
-        features = {
+        features = { 
             'glucosa': glucosa,
             'insulina': insulina
         }
+        
         continuas = [[glucosa, insulina],]
 
         predictions = loaded_model.predict(continuas)
         prediction = r_invmap[predictions[0]] 
+
+        #https://careerkarma.com/blog/python-convert-list-to-dictionary/
+        #keys = ["glucosa", "insulina", ]
+        #vals = [glucosa, insulina, ]
+        #fe_dictionary = dict(zip(keys, vals))
+        #print(fe_dictionary)
 
         #return '''<h3>The glucosa value is:  {}</h3>
         #          <h3>The insulina value is: {}</h3>
