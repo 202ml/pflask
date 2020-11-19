@@ -27,11 +27,19 @@ def api_predict():
             return jsonify(error="request body cannot be empty"), 400
         glucosa = req_data['glucosa']
         insulina = req_data['insulina']
+        r_invmap = {1: 'normal', 2: 'pre-diabetes', 3: 'diabetes'}
+
+        features = {
+            'glucosa': glucosa,
+            'insulina': insulina
+        }
 
         continuas = [[glucosa, insulina],] 
         #continuas = [[330, 1520],] 
-        predictions = str(loaded_model.predict(continuas))
-        return jsonify(prediction=predictions)
+        predictions = loaded_model.predict(continuas)
+        prediction = r_invmap[predictions[0]] 
+
+        return jsonify( features=features,predictions=prediction)
 
     return '''User postman u otro cliente para ejecutar esta API REST'''
 
@@ -50,15 +58,19 @@ def predict():
         #r_map = {'normal': 1, 'pre-diabetes': 2, 'diabetes': 3}
         r_invmap = {1: 'normal', 2: 'pre-diabetes', 3: 'diabetes'}
 
-       
-        continuas = [[glucosa, insulina],] #330, 1520
+        features = {
+            'glucosa': glucosa,
+            'insulina': insulina
+        }
+        continuas = [[glucosa, insulina],]
+
         predictions = loaded_model.predict(continuas)
-        result_cnet = r_invmap[predictions[0]] 
+        prediction = r_invmap[predictions[0]] 
 
         #return '''<h3>The glucosa value is:  {}</h3>
         #          <h3>The insulina value is: {}</h3>
         #          <h1>The predict value is: {}</h1>'''.format(glucosa, insulina, predictions)
-        return render_template("index.html", features=continuas, predictions=result_cnet)
+        return render_template("index.html", features=features, predictions=prediction)
 
     #return '''<form method="POST">
     #              glucosa: <input type="text" name="glucosa"><br>

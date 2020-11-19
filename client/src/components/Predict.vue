@@ -4,16 +4,13 @@
       <div class="col-sm-10">
 
     <h1>Cliente de las predicciones</h1>
-    <alert :message=message v-if="showMessage"></alert>
-    <p> 
-      {{ resp }}
-    </p> 
+     
     <b-form @submit="onSubmit" @reset="onReset" class="w-100">
     <b-form-group id="form-title-group"
                     label="glucosa:"
                     label-for="form-title-input">
           <b-form-input id="form-title-input"
-                        type="text"
+                        type="number"
                         v-model="d.var1"
                         required
                         placeholder="Enter glucosa">
@@ -23,7 +20,7 @@
                       label="insulina:"
                       label-for="form-author-input">
             <b-form-input id="form-author-input"
-                          type="text"
+                          type="number"
                           v-model="d.var2"
                           required
                           placeholder="Enter insulina">
@@ -35,6 +32,16 @@
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-button-group>
       </b-form>
+
+      <alert :message=message v-if="showMessage"></alert>
+    <div> 
+      <hr>
+      <p v-if="predictions != ''"> 
+        Features:<b> {{features}}</b><br>
+        Predict: <b>{{predictions}}</b>
+        </p>
+      <p v-else>No predicts!</p>          
+    </div>
 
     </div>
     </div>
@@ -49,7 +56,8 @@ export default {
   name: 'Predict',
   data: function() {
     return {
-      resp: "",
+      features: "",
+      predictions: "",
       d: {
         var1: '',
         var2: '',
@@ -68,7 +76,8 @@ export default {
       console.log(payload);
       axios.post(path, payload)
         .then((res) => {
-          this.resp = res.data;
+          this.features = res.data.features;
+          this.predictions = res.data.predictions;
 
           this.message = 'predict process ';
           this.showMessage = true;
