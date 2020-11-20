@@ -5,6 +5,7 @@ Proyectos de machine learning con python y R (opcional)
 * [Resources sharing to docker](#resources-sharing-to-docker)
 * [Runing form Docker](#runing-form-Docker)
 * [Deploy en heroku](#deploy-en-heroku)
+* [Testing predict desde un cliente vuejs](#testing-predict-desde-un-cliente-vuejs)
 * [Testing api predict usando heroku o localhost](#testing-api-predict-usando-heroku-o-localhost)
 
 * [License](#license)
@@ -98,6 +99,13 @@ PS D:\dockr\ppy\pflask> docker-compose up -d
 Please go to [herflask] es el proyecto para subir a heroku.
 Copy the `services\mlapp\project\templates` folder and `services\mlapp\project\app.py` file and paste into [herflask] root.
 
+## Testing predict desde un cliente vuejs
+```bash
+PS D:\dockr\ppy\pflask> cd client
+PS D:\dockr\ppy\pflask\client> npm install
+PS D:\dockr\ppy\pflask\client> npm run serve
+```
+Mayor detalle en https://github.com/202ml/pflask/tree/main/client
 
 
 ### Testing api predict usando heroku o localhost
