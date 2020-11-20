@@ -5,6 +5,8 @@ Proyectos de machine learning con python y R (opcional)
 * [Resources sharing to docker](#resources-sharing-to-docker)
 * [Runing form Docker](#runing-form-Docker)
 * [Deploy en heroku](#deploy-en-heroku)
+* [Testing api predict usando heroku](#testing-api-predict-usando-heroku)
+
 * [License](#license)
 
 ## Resources sharing to docker
@@ -96,7 +98,32 @@ PS D:\dockr\ppy\pflask> docker-compose up -d
 Please go to [herflask] es el proyecto para subir a heroku.
 Copy the `services\mlapp\project\templates` folder and `services\mlapp\project\app.py` file and paste into [herflask] root.
 
-Udsted ya puede generar su propio modelo ML `DTS.joblib` y hacer los cambios respectivos
+
+
+### Testing api predict usando heroku
+En POSTMAN
+Ejecute `http://localhost:5001/api/predict` con método `POST`
+En el body, colocar las features de entrada
+```bash
+{
+   "glucosa": 485,
+   "insulina": 8966
+}
+```
+
+Obtendrá estos resultados
+```bash
+{
+    "features": {
+        "glucosa": 485,
+        "insulina": 8966
+    },
+    "predictions": "diabetes"
+}
+```
+
+Udsted ya puede generar su propio modelo ML `DTS.joblib` y hacer los cambios respectivos en este código
+
 
 ### License
 
