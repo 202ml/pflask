@@ -1,4 +1,4 @@
-# services/users/project/config.py
+# services/mlapp/project/config.py
 
 
 class BaseConfig:

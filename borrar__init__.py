@@ -1,5 +1,5 @@
-# services/users/project/__init__.py
-
+# services/mlapp/project/__init__.py
+"""
 import os  # new
 from flask import Flask, send_file, jsonify
 from flask import request, render_template
@@ -31,8 +31,7 @@ print("sklearn version:",sklearn.__version__)
 
 @app.route('/api/predict', methods=['GET','POST'])
 def api_predict():
-    """API request
-    """
+
     if request.method == 'POST':  #this block is only entered when the form is submitted
         #Load the saved model
         loaded_model = cargarModeloSiEsNecesario()
@@ -52,8 +51,7 @@ def api_predict():
 
 @app.route('/predict', methods=['GET','POST'])
 def predict():
-    """
-    """
+
     if request.method == 'POST':  #this block is only entered when the form is submitted
         #Load the saved model
         print("Cargar el modelo...")
@@ -116,4 +114,4 @@ def route_frontend(path):
     else:
         index_path = os.path.join(app.static_folder, "index.html")
         return send_file(index_path)
-    
+"""
