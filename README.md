@@ -4,7 +4,7 @@ Proyectos de machine learning con python y R (opcional)
 
 * [Resources sharing to docker](#resources-sharing-to-docker)
 * [Runing form Docker](#runing-form-Docker)
-* [Deploy en heroku](#deploy-en-heroku)
+* [Deploy en heroku o localhost](#deploy-en-heroku-o-localhost)
 * [Testing api predict usando heroku](#testing-api-predict-usando-heroku)
 
 * [License](#license)
@@ -100,9 +100,9 @@ Copy the `services\mlapp\project\templates` folder and `services\mlapp\project\a
 
 
 
-### Testing api predict usando heroku
+### Testing api predict usando heroku o localhost
 En POSTMAN
-Ejecute `http://localhost:5001/api/predict` con método `POST`
+Ejecute `https://herflask.herokuapp.com/api/predict` o `http://localhost:5001/api/predict` con método `POST`
 En el body, colocar las features de entrada
 ```bash
 {
