@@ -4,8 +4,8 @@ Proyectos de machine learning con python y R (opcional)
 
 * [Resources sharing to docker](#resources-sharing-to-docker)
 * [Runing form Docker](#runing-form-Docker)
-* [Deploy en heroku o localhost](#deploy-en-heroku-o-localhost)
-* [Testing api predict usando heroku](#testing-api-predict-usando-heroku)
+* [Deploy en heroku](#deploy-en-heroku)
+* [Testing api predict usando heroku o localhost](#testing-api-predict-usando-heroku-o-localhost)
 
 * [License](#license)
 
