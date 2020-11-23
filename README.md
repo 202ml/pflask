@@ -1,6 +1,8 @@
 # Machine Learning app dev with docker
 
-Proyectos de machine learning con python y R (opcional)
+Proyecto python para desarrollo de apps con flask y Docker.
+
+(opcional) Incluye un cliente VueJS https://github.com/202ml/pflask/tree/main/client
 
 * [Resources sharing to docker](#resources-sharing-to-docker)
 * [Runing form Docker](#runing-form-Docker)
