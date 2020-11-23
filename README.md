@@ -94,10 +94,10 @@ PS D:\dockr\ppy\pflask> docker-compose up -d
 
 ### Deploy en heroku
 
-[herflask]:      https://github.com/202ml/herflask
+[pflask-toheroku]:      https://github.com/202ml/pflask-toheroku
 
-Please go to [herflask] es el proyecto para subir a heroku.
-Copy the `services\mlapp\project\templates` folder and `services\mlapp\project\app.py` file and paste into [herflask] root.
+Please go to [pflask-toheroku] es el proyecto para subir a heroku.
+Copy the `services\mlapp\project\templates` folder and `services\mlapp\project\app.py` file and paste into [pflask-toheroku] root.
 
 ## Testing predict desde un cliente vuejs
 ```bash
@@ -110,7 +110,7 @@ Mayor detalle en https://github.com/202ml/pflask/tree/main/client
 
 ### Testing api predict usando heroku o localhost
 En POSTMAN
-Ejecute `https://herflask.herokuapp.com/api/predict` o `http://localhost:5001/api/predict` con método `POST`
+Ejecute `https://pflask-toheroku.herokuapp.com/api/predict` o `http://localhost:5001/api/predict` con método `POST`
 En el body, colocar las features de entrada
 ```bash
 {
