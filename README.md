@@ -1,6 +1,6 @@
 # Machine Learning app dev with docker
 
-Proyecto python para desarrollo de apps con flask y Docker.
+Proyecto python para desarrollo de apps con flask y Docker. Si no usas Docker, escribe tu códe directamente en  [pflask-toheroku]
 
 (opcional) Incluye un cliente VueJS https://github.com/202ml/pflask/tree/main/client
 
